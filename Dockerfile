@@ -1,21 +1,16 @@
-FROM node:22-alpine AS builder
+FROM --platform=$BUILDPLATFORM node:22-bookworm-slim AS builder
+WORKDIR /app
 
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.17.1 --activate
 
-# Install dependencies
-COPY pnpm-lock.yaml ./
-COPY package.json ./
-RUN pnpm install --frozen-lockfile
+COPY pnpm-lock.yaml package.json ./
+RUN --mount=type=cache,id=pnpm-store,target=/root/.pnpm-store \
+    pnpm install --frozen-lockfile
 
-# Copy source and build
 COPY . .
 RUN pnpm run build
 
-# Stage 2: Serve
-FROM nginx:alpine
-COPY --from=builder /dist /usr/share/nginx/html
-
-# Expose port
+FROM --platform=$TARGETPLATFORM nginx:1.27-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
