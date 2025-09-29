@@ -1,31 +1,29 @@
-import { useState } from "react";
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import DashboardIcons from "./dashboard/DashboardItems";
+import Avatar from '@mui/material/Avatar';
 
-function App() {
-  const [visible, setVisible] = useState(false);
+export default () => {
+
+  const icon = './jlogo.png'
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>Hello, I’m John Walker</h1>
-      <p>I’m really happy you can see this!!</p>
+    <>
+      <AppBar position="static">
+        <Toolbar>
+          <Avatar
+            src={icon}
+            alt={`poo logo`}
+            sx={{ width: 40, height: 40, marginRight: 2 }}
+          />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            john's k3s dashboard
+          </Typography>
+        </Toolbar>
+      </AppBar>
 
-      <button
-        onClick={() => setVisible(!visible)}
-        style={{
-          marginTop: "1rem",
-          padding: "0.5rem 1rem",
-          cursor: "pointer",
-        }}
-      >
-        {visible ? "Hide message" : "Show message"}
-      </button>
-
-      {visible && (
-        <p style={{ marginTop: "1rem", color: "darkblue" }}>
-          This text is toggled by React state.
-        </p>
-      )}
-    </div>
+      <DashboardIcons />
+    </>
   );
 }
-
-export default App;
