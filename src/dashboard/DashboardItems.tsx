@@ -1,7 +1,6 @@
 import Masonry from '@mui/lab/Masonry';
 import DashboardIcon from './DashboardItem';
 import type { DashboardItemModel } from './DashboardItemModel';
-import ForestIcon from '@mui/icons-material/Forest';
 
 const data : DashboardItemModel[] = [
   {
