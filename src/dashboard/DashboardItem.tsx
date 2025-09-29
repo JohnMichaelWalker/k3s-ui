@@ -80,6 +80,7 @@ export default function DashboardIcon({
       overlap="rectangular"
       anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
       sx={{
+        display: 'block',
         '& .MuiBadge-badge': (theme) => ({
           boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
           left: 8,
